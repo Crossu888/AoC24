@@ -1,23 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
+﻿using System.IO;
 internal class AoC
 {
     static uint[] Sort(uint[] array)
     {
         uint temp;
-        int arrayLength = array.Length;
-        for(int n=(int)(arrayLength / 1.3);n>=1;n=(int)(n / 1.3))
+        bool swapThisRound=true;
+        while(swapThisRound)
         {
-            for(int i=0;i<arrayLength-1;i++)
+            swapThisRound=false;
+            for(int i=0;i<array.Length-1;i++)
             {
-                if(i+n<arrayLength)
+                if(array[i]>array[i+1])
                 {
-                    if(array[i]>array[i+n])
-                    {
-                        temp=array[i];
-                        array[i]=array[i+n];
-                        array[i+n]=temp;
-                    }
+                    temp=array[i+1];
+                    array[i+1]=array[i];
+                    array[i]=temp;
+                    swapThisRound=true;
                 }
             }
         }
@@ -37,13 +35,6 @@ internal class AoC
         file.Close();
         column1 = Sort(column1);
         column2 = Sort(column2);
-        //write array to file to check if it's sorted ok
-        string[] column1sorted = new string[1000];
-        for(int i=0;i<1000;i++)
-        {
-            column1sorted[i] = Convert.ToString(column1[i]);
-        }
-        File.WriteAllLines("testsorted", column1sorted);
         uint sum=0;
         for(int i=0;i<1000;i++)
         {
