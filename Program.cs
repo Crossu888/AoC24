@@ -40,8 +40,7 @@ internal class AoC
         if(part=="1")
             D1p1(column1, column2);
         else if(part=="2")
-            //D1p2(column1, column2);
-            Console.WriteLine("not yet implemented");
+            D1p2(column1, column2);
         else
             Console.WriteLine("Invalid input");
     }
@@ -56,6 +55,24 @@ internal class AoC
                 sum+=column2[i]-column1[i];
         }
         Console.WriteLine(sum);
+    }
+    static void D1p2(uint[] column1, uint[] column2)
+    {
+        uint simScore=0;
+        uint dupes;
+        for(int i=0;i<1000;i++)
+        {
+            dupes=0;
+            for(int n=0;n<1000;n++)
+            {
+                if(column2[n]==column1[i])
+                {
+                    dupes++;
+                }
+            }
+            simScore+=column1[i]*dupes;
+        }
+        Console.WriteLine(simScore);
     }
     private static void Main()
     {
