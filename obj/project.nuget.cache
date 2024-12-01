@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wrZB+Alfbqi6FmubTDbVA16LNLA7oMVxMPmwanwkEC7Xo/SCUubsPyKG3KZczrRjoE7vW4/XRzBDxXzgUSwBxQ==",
+  "success": true,
+  "projectFilePath": "/home/crossu/Documents/AoC24/AoC24.csproj",
+  "expectedPackageFiles": [
+    "/home/crossu/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
