@@ -1,0 +1,15 @@
+/home/crossu/Documents/AoC24/bin/Debug/net8.0/AoC24
+/home/crossu/Documents/AoC24/bin/Debug/net8.0/AoC24.deps.json
+/home/crossu/Documents/AoC24/bin/Debug/net8.0/AoC24.runtimeconfig.json
+/home/crossu/Documents/AoC24/bin/Debug/net8.0/AoC24.dll
+/home/crossu/Documents/AoC24/bin/Debug/net8.0/AoC24.pdb
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.GeneratedMSBuildEditorConfig.editorconfig
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.AssemblyInfoInputs.cache
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.AssemblyInfo.cs
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.csproj.CoreCompileInputs.cache
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.sourcelink.json
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.dll
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/refint/AoC24.dll
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.pdb
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/AoC24.genruntimeconfig.cache
+/home/crossu/Documents/AoC24/obj/Debug/net8.0/ref/AoC24.dll

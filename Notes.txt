@@ -1,0 +1,10 @@
+Puzzle 1
+    Input
+        2 rows of 1000 numbers
+    Notes
+        find the distance between the smallest numbers from both rows then repeat for every other one
+        - sort both rows to get the pairs
+        - find the bigger number from the pair and subtract the smaller one
+        - add the result to the sum and repeat
+    Output
+        the sum of all distances
