@@ -1,7 +1,4 @@
-﻿using System.Formats.Asn1;
 using System.IO;
-using System.Reflection.Metadata;
-using System.Runtime.InteropServices;
 internal class AoC
 {
     static uint[] Sort(uint[] array)
@@ -92,30 +89,50 @@ internal class AoC
             {
                 levels[n]=Convert.ToInt32(report[n]);
             }
-            // Check #1 - check if the report is ascending, descending or neither
-            // -1 = unsafe report | 0 = descending | 1 = ascending
-            int reportOrder = Day2check1(levels,part).order;
-            Console.WriteLine(reportOrder);
-            Console.WriteLine(Day2check1(levels,part).ignore);
-            Console.WriteLine();
-            if(reportOrder==-1) {continue;}
-            // Check #2 - check if each number is less than 4 off the previous number
-            if(Day2check2(reportOrder,levels,part,Day2check1(levels,part).ignore))
-                safe++;
-            //Console.WriteLine(Day2check2(reportOrder,levels,part,Day2check1(levels,part).ignore));
+			if(part=="2")
+			{
+				int reportCut[] = new int[levels.Length-1]
+				for(int ignore=0;ignore<reportCut.Length;ignore++)
+				{
+					bool ignored=false;
+					for(int n=0;n<reportCut.Length;n++)
+					{
+						if(n==ignore&&ignored==false)
+						{
+							ignored=true;
+							continue;
+						}
+						else if(ignored==true)
+							reportCut[i]=levels[i+1];
+						else
+							reportCut[i]=levels[i];
+					}
+					// Check #1 - check if the report is ascending, descending or neither
+	            	// -1 = unsafe report | 0 = descending | 1 = ascending
+					int reportOrder = Day2check1(levels);
+					if(reportOrder==-1) {continue;}
+					// Check #2 - check if each number is less than 4 off the previous number
+					if(Day2check2(reportOrder,levels)) {safe++; break;}
+				}
+			}
+			else
+			{
+				// Check #1 - check if the report is ascending, descending or neither
+            	// -1 = unsafe report | 0 = descending | 1 = ascending
+				int reportOrder = Day2check1(levels);
+				if(reportOrder==-1) {continue;}
+				// Check #2 - check if each number is less than 4 off the previous number
+				if(Day2check2(reportOrder,levels))
+                	safe++;
+			}
         }
         Console.WriteLine(safe);
     }
-    static (int order, int ignore) Day2check1(int[] report, string part)
+    static int Day2check1(int[] report)
     {
         int order=0;
-        int ignoreIndex=-1;
-        bool ignored=false;
-        if(part=="1") {ignored=true;}
         for(int i=0;i<report.Length-1;i++)
         {
-            if(report[i]>=report[i+1] && order>0 && ignored==false) {ignoreIndex=i+1; ignored=true;}
-            else if(report[i]<=report[i+1] && order<0 && ignored==false) {ignoreIndex=i+1; ignored=true;}
             else if(report[i]>report[i+1]) {order--;}
             else if(report[i]<report[i+1]) {order++;}
         }
@@ -131,68 +148,25 @@ internal class AoC
             else
                 return (-1,-1);
         }
-        else if(part=="2")
-        {
-            if(order==report.Length-2||order==report.Length-1)
-                return (1,ignoreIndex);
-            else if(-order==report.Length-2||-order==report.Length-1)
-                return (0,ignoreIndex);
-            else
-                return (-1,ignoreIndex);
-        }
-        else
-            return (-1,-1);
+		else
+			return -1;
     }
     static bool Day2check2(int reportOrder, int[] report, string part, int ignoreIndex)
     {
-        if(ignoreIndex==-1 && part=="2")
-        {
-            int ignored=-1;
-            if(reportOrder==0)
-            {
-                for(int i=0;i<report.Length-1;i++)
-                {
-                    if(!(report[i+1]>=report[i]-3) && ignored!=-1)
-                        return false;
-                    else if(!(report[i+1]>=report[i]-3))
-                        ignored=i+1;
-                }
-            }
-            else if(reportOrder==1)
-            {
-                for(int i=0;i<report.Length-1;i++)
-                {
-                    //Console.WriteLine(report[i]);
-                    if(!(report[i+1]<=report[i]+3) && ignored!=-1)
-                    {
-                        return false;
-                    }
-                    else if(!(report[i+1]<=report[i]+3))
-                        ignored=i+1;
-                }
-            }
-            return true;
-        }
-        else if(reportOrder==0)
+        if(reportOrder==0)
         {
             for(int i=0;i<report.Length-1;i++)
             {
-                if(i!=ignoreIndex)
-                {
-                    if(!(report[i+1]>=report[i]-3))
-                        return false;
-                }
+                if(!(report[i+1]>=report[i]-3))
+                    return false;
             }
         }
         else if(reportOrder==1)
         {
             for(int i=0;i<report.Length-1;i++)
             {
-                if(i!=ignoreIndex)
-                {
-                    if(!(report[i+1]<=report[i]+3))
-                        return false;
-                }
+                if(!(report[i+1]<=report[i]+3))
+                    return false;
             }
         }
         return true;
