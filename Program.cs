@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 internal class AoC
 {
@@ -76,12 +77,12 @@ internal class AoC
     }
     static void Day2()
     {
-        StreamReader file = new StreamReader("inputs/input2test");
+        StreamReader file = new StreamReader("inputs/input2");
         int safe=0;
         Console.WriteLine("Part 1 or 2?");
         string part = Console.ReadLine()!;
         if(!(part=="1"||part=="2")) {Console.WriteLine("Invalid input"); return;}
-        for(int i=0;i<10;i++)
+        for(int i=0;i<1000;i++)
         {
             string[] report = file.ReadLine()!.Split(" ");
             int[] levels = new int[report.Length];
@@ -91,28 +92,19 @@ internal class AoC
             }
 			if(part=="2")
 			{
-				int reportCut[] = new int[levels.Length-1]
-				for(int ignore=0;ignore<reportCut.Length;ignore++)
+				ArrayList reportCut = new ArrayList();
+				for(int ignore=0;ignore<levels.Length;ignore++)
 				{
-					bool ignored=false;
-					for(int n=0;n<reportCut.Length;n++)
-					{
-						if(n==ignore&&ignored==false)
-						{
-							ignored=true;
-							continue;
-						}
-						else if(ignored==true)
-							reportCut[i]=levels[i+1];
-						else
-							reportCut[i]=levels[i];
-					}
+                    reportCut.Clear();
+					reportCut.AddRange(levels);
+                    reportCut.RemoveAt(ignore);
+                    int[] newReport = (int[])reportCut.ToArray(typeof(int));
 					// Check #1 - check if the report is ascending, descending or neither
 	            	// -1 = unsafe report | 0 = descending | 1 = ascending
-					int reportOrder = Day2check1(levels);
+					int reportOrder = Day2check1(newReport);
 					if(reportOrder==-1) {continue;}
 					// Check #2 - check if each number is less than 4 off the previous number
-					if(Day2check2(reportOrder,levels)) {safe++; break;}
+					if(Day2check2(reportOrder,newReport)) {safe++; break;}
 				}
 			}
 			else
@@ -133,25 +125,20 @@ internal class AoC
         int order=0;
         for(int i=0;i<report.Length-1;i++)
         {
-            else if(report[i]>report[i+1]) {order--;}
+            if(report[i]>report[i+1]) {order--;}
             else if(report[i]<report[i+1]) {order++;}
         }
         //Console.WriteLine(order);
         //Console.WriteLine(report.Length-2);
         //Console.WriteLine();
-        if(part=="1")
-        {
-            if(order==report.Length-1)
-                return (1,-1);
-            else if(-order==report.Length-1)
-                return (0,-1);
-            else
-                return (-1,-1);
-        }
-		else
-			return -1;
+        if(order==report.Length-1)
+            return 1;
+        else if(-order==report.Length-1)
+            return 0;
+        else
+            return -1;
     }
-    static bool Day2check2(int reportOrder, int[] report, string part, int ignoreIndex)
+    static bool Day2check2(int reportOrder, int[] report)
     {
         if(reportOrder==0)
         {
