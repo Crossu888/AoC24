@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using System.Text.RegularExpressions;
 internal class AoC
 {
     static uint[] Sort(uint[] array)
@@ -162,7 +163,11 @@ static void Day3()
 {
     StreamReader file = new StreamReader("inputs/input3");
     int sum=0;
-    string[] subLines = file.ReadToEnd()!.Split("mul(");
+    string mulPatt = @"(mul\([0-9]+,[0-9]+\))"; //finds every mul(x,y) instruction
+    string input = file.ReadToEnd();
+    int matches = Regex.Count(input,mulPatt);
+    Console.WriteLine(matches);
+    /*string[] subLines = file.ReadToEnd()!.Split("mul("); //Non-Regex part 1 solution
     for(int i=0;i<subLines.Length;i++)
     {
         if(subLines[i].Contains(")"))
@@ -175,8 +180,8 @@ static void Day3()
                 //Console.WriteLine(subLines[i]);
             }
         }
-    }
-    Console.WriteLine(sum);
+    }*/
+    //Console.WriteLine(sum);
 }
     private static void Main()
     {
