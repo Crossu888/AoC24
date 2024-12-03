@@ -158,6 +158,26 @@ internal class AoC
         }
         return true;
     }
+static void Day3()
+{
+    StreamReader file = new StreamReader("inputs/input3");
+    int sum=0;
+    string[] subLines = file.ReadToEnd()!.Split("mul(");
+    for(int i=0;i<subLines.Length;i++)
+    {
+        if(subLines[i].Contains(")"))
+        {
+            subLines[i]=subLines[i].Remove(subLines[i].IndexOf(")"));
+            if(subLines[i].ToCharArray().Length<=7 && subLines[i].Contains(","))
+            {
+                string[] pairStr = subLines[i].Split(",");
+                sum+=Convert.ToInt32(pairStr[0])*Convert.ToInt32(pairStr[1]);
+                //Console.WriteLine(subLines[i]);
+            }
+        }
+    }
+    Console.WriteLine(sum);
+}
     private static void Main()
     {
         Console.WriteLine("Select the day of the puzzle");
@@ -166,6 +186,8 @@ internal class AoC
             Day1();
         else if(day=="2")
             Day2();
+        else if(day=="3")
+            Day3();
         else
             Console.WriteLine("Invalid input");
     }
