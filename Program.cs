@@ -160,60 +160,106 @@ internal class AoC
         }
         return true;
     }
-static void Day3()
-{
-    StreamReader file = new StreamReader("inputs/input3");
-    int sum=0;
-    Console.WriteLine("Part 1 or 2?");
-    string part = Console.ReadLine()!;
-    if(part=="1")
+    static void Day3()
     {
-        string mulPatt = @"(mul\([0-9]+,[0-9]+\))"; //finds every mul(x,y) instruction
-        string input = file.ReadToEnd();
-        MatchCollection matches = Regex.Matches(input,mulPatt);
-        foreach(Match match in matches)
+        StreamReader file = new StreamReader("inputs/input3");
+        int sum=0;
+        Console.WriteLine("Part 1 or 2?");
+        string part = Console.ReadLine()!;
+        if(part=="1")
         {
-            MatchCollection numbers = Regex.Matches(match.ToString(),@"[0-9]+");
-            sum+=Convert.ToInt32(numbers[0].ToString()) * Convert.ToInt32(numbers[1].ToString());
-            
-        }
-    }
-    else if(part=="2")
-    {
-        string pattern=@"(mul\([0-9]+,[0-9]+\))|(do\(\)|(don't\(\)))";
-        string input=file.ReadToEnd();
-        MatchCollection matches = Regex.Matches(input,pattern);
-        bool exec=true;
-        foreach(Match match in matches)
-        {
-            if(match.ToString()=="do()")
-                exec=true;
-            else if(match.ToString()=="don't()")
-                exec=false;
-            else if(exec==true)
+            string mulPatt = @"(mul\([0-9]+,[0-9]+\))"; //finds every mul(x,y) instruction
+            string input = file.ReadToEnd();
+            MatchCollection matches = Regex.Matches(input,mulPatt);
+            foreach(Match match in matches)
             {
                 MatchCollection numbers = Regex.Matches(match.ToString(),@"[0-9]+");
                 sum+=Convert.ToInt32(numbers[0].ToString()) * Convert.ToInt32(numbers[1].ToString());
+                
             }
         }
-    }
-    Console.WriteLine(sum);
-    /*string[] subLines = file.ReadToEnd()!.Split("mul("); //Non-Regex part 1 solution
-    for(int i=0;i<subLines.Length;i++)
-    {
-        if(subLines[i].Contains(")"))
+        else if(part=="2")
         {
-            subLines[i]=subLines[i].Remove(subLines[i].IndexOf(")"));
-            if(subLines[i].ToCharArray().Length<=7 && subLines[i].Contains(","))
+            string pattern=@"(mul\([0-9]+,[0-9]+\))|(do\(\)|(don't\(\)))";
+            string input=file.ReadToEnd();
+            MatchCollection matches = Regex.Matches(input,pattern);
+            bool exec=true;
+            foreach(Match match in matches)
             {
-                string[] pairStr = subLines[i].Split(",");
-                sum+=Convert.ToInt32(pairStr[0])*Convert.ToInt32(pairStr[1]);
-                //Console.WriteLine(subLines[i]);
+                if(match.ToString()=="do()")
+                    exec=true;
+                else if(match.ToString()=="don't()")
+                    exec=false;
+                else if(exec==true)
+                {
+                    MatchCollection numbers = Regex.Matches(match.ToString(),@"[0-9]+");
+                    sum+=Convert.ToInt32(numbers[0].ToString()) * Convert.ToInt32(numbers[1].ToString());
+                }
             }
         }
-    }*/
-    //Console.WriteLine(sum);
-}
+        Console.WriteLine(sum);
+        /*string[] subLines = file.ReadToEnd()!.Split("mul("); //Non-Regex part 1 solution
+        for(int i=0;i<subLines.Length;i++)
+        {
+            if(subLines[i].Contains(")"))
+            {
+                subLines[i]=subLines[i].Remove(subLines[i].IndexOf(")"));
+                if(subLines[i].ToCharArray().Length<=7 && subLines[i].Contains(","))
+                {
+                    string[] pairStr = subLines[i].Split(",");
+                    sum+=Convert.ToInt32(pairStr[0])*Convert.ToInt32(pairStr[1]);
+                    //Console.WriteLine(subLines[i]);
+                }
+            }
+        }*/
+        //Console.WriteLine(sum);
+    }
+    static void Day4()
+    {
+        StreamReader file = new StreamReader("inputs/input4");
+        int result=0;
+        char[,] grid= new char[140,140];
+        for(int i=0;i<140;i++)
+        {
+            char[] line=file.ReadLine()!.ToCharArray();
+            for(int n=0;n<140;n++)
+            {
+                grid[i,n]=line[n];
+            }
+        }
+        for(int i=0;i<140;i++)
+        {
+            for(int n=0;n<140;n++)
+            {
+                if(n<140-3) //Horizontal scan
+                {
+                    if(grid[i,n]=='X'&&grid[i,n+1]=='M'&&grid[i,n+2]=='A'&&grid[i,n+3]=='S')
+                        result++;
+                    else if(grid[i,n]=='S'&&grid[i,n+1]=='A'&&grid[i,n+2]=='M'&&grid[i,n+3]=='X')
+                        result++;
+                }
+                if(i<140-3) //Vertical scan
+                {
+                    if(grid[i,n]=='X'&&grid[i+1,n]=='M'&&grid[i+2,n]=='A'&&grid[i+3,n]=='S')
+                        result++;
+                    else if(grid[i,n]=='S'&&grid[i+1,n]=='A'&&grid[i+2,n]=='M'&&grid[i+3,n]=='X')
+                        result++;
+                }
+                if(n<140-3&&i<140-3)
+                {
+                    if(grid[i,n]=='X'&&grid[i+1,n+1]=='M'&&grid[i+2,n+2]=='A'&&grid[i+3,n+3]=='S')
+                        result++;
+                    else if(grid[i,n]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n+2]=='M'&&grid[i+3,n+3]=='X')
+                        result++;
+                    if(grid[i+3,n]=='X'&&grid[i+2,n+1]=='M'&&grid[i+1,n+2]=='A'&&grid[i,n+3]=='S')
+                        result++;
+                    else if(grid[i+3,n]=='S'&&grid[i+2,n+1]=='A'&&grid[i+1,n+2]=='M'&&grid[i,n+3]=='X')
+                        result++;
+                }
+            }
+        }
+        Console.WriteLine(result);
+    }
     private static void Main()
     {
         Console.WriteLine("Select the day of the puzzle");
@@ -224,6 +270,8 @@ static void Day3()
             Day2();
         else if(day=="3")
             Day3();
+        else if(day=="4")
+            Day4();
         else
             Console.WriteLine("Invalid input");
     }
