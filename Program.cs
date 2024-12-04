@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
 internal class AoC
@@ -163,10 +164,40 @@ static void Day3()
 {
     StreamReader file = new StreamReader("inputs/input3");
     int sum=0;
-    string mulPatt = @"(mul\([0-9]+,[0-9]+\))"; //finds every mul(x,y) instruction
-    string input = file.ReadToEnd();
-    int matches = Regex.Count(input,mulPatt);
-    Console.WriteLine(matches);
+    Console.WriteLine("Part 1 or 2?");
+    string part = Console.ReadLine()!;
+    if(part=="1")
+    {
+        string mulPatt = @"(mul\([0-9]+,[0-9]+\))"; //finds every mul(x,y) instruction
+        string input = file.ReadToEnd();
+        MatchCollection matches = Regex.Matches(input,mulPatt);
+        foreach(Match match in matches)
+        {
+            MatchCollection numbers = Regex.Matches(match.ToString(),@"[0-9]+");
+            sum+=Convert.ToInt32(numbers[0].ToString()) * Convert.ToInt32(numbers[1].ToString());
+            
+        }
+    }
+    else if(part=="2")
+    {
+        string pattern=@"(mul\([0-9]+,[0-9]+\))|(do\(\)|(don't\(\)))";
+        string input=file.ReadToEnd();
+        MatchCollection matches = Regex.Matches(input,pattern);
+        bool exec=true;
+        foreach(Match match in matches)
+        {
+            if(match.ToString()=="do()")
+                exec=true;
+            else if(match.ToString()=="don't()")
+                exec=false;
+            else if(exec==true)
+            {
+                MatchCollection numbers = Regex.Matches(match.ToString(),@"[0-9]+");
+                sum+=Convert.ToInt32(numbers[0].ToString()) * Convert.ToInt32(numbers[1].ToString());
+            }
+        }
+    }
+    Console.WriteLine(sum);
     /*string[] subLines = file.ReadToEnd()!.Split("mul("); //Non-Regex part 1 solution
     for(int i=0;i<subLines.Length;i++)
     {
