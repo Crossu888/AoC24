@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
 internal class AoC
@@ -227,38 +226,65 @@ internal class AoC
                 grid[i,n]=line[n];
             }
         }
-        for(int i=0;i<140;i++)
-        {
-            for(int n=0;n<140;n++)
-            {
-                if(n<140-3) //Horizontal scan
-                {
-                    if(grid[i,n]=='X'&&grid[i,n+1]=='M'&&grid[i,n+2]=='A'&&grid[i,n+3]=='S')
-                        result++;
-                    else if(grid[i,n]=='S'&&grid[i,n+1]=='A'&&grid[i,n+2]=='M'&&grid[i,n+3]=='X')
-                        result++;
-                }
-                if(i<140-3) //Vertical scan
-                {
-                    if(grid[i,n]=='X'&&grid[i+1,n]=='M'&&grid[i+2,n]=='A'&&grid[i+3,n]=='S')
-                        result++;
-                    else if(grid[i,n]=='S'&&grid[i+1,n]=='A'&&grid[i+2,n]=='M'&&grid[i+3,n]=='X')
-                        result++;
-                }
-                if(n<140-3&&i<140-3)
-                {
-                    if(grid[i,n]=='X'&&grid[i+1,n+1]=='M'&&grid[i+2,n+2]=='A'&&grid[i+3,n+3]=='S')
-                        result++;
-                    else if(grid[i,n]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n+2]=='M'&&grid[i+3,n+3]=='X')
-                        result++;
-                    if(grid[i+3,n]=='X'&&grid[i+2,n+1]=='M'&&grid[i+1,n+2]=='A'&&grid[i,n+3]=='S')
-                        result++;
-                    else if(grid[i+3,n]=='S'&&grid[i+2,n+1]=='A'&&grid[i+1,n+2]=='M'&&grid[i,n+3]=='X')
-                        result++;
-                }
-            }
-        }
-        Console.WriteLine(result);
+	Console.WriteLine("Part 1 or 2?");
+        string part = Console.ReadLine()!;
+        if(part=="1")
+	{
+	        for(int i=0;i<140;i++)
+	        {
+	            for(int n=0;n<140;n++)
+	            {
+	                if(n<140-3) //Horizontal scan
+	                {
+	                    if(grid[i,n]=='X'&&grid[i,n+1]=='M'&&grid[i,n+2]=='A'&&grid[i,n+3]=='S')
+	                        result++;
+	                    else if(grid[i,n]=='S'&&grid[i,n+1]=='A'&&grid[i,n+2]=='M'&&grid[i,n+3]=='X')
+	                        result++;
+	                }
+	                if(i<140-3) //Vertical scan
+	                {
+	                    if(grid[i,n]=='X'&&grid[i+1,n]=='M'&&grid[i+2,n]=='A'&&grid[i+3,n]=='S')
+	                        result++;
+	                    else if(grid[i,n]=='S'&&grid[i+1,n]=='A'&&grid[i+2,n]=='M'&&grid[i+3,n]=='X')
+	                        result++;
+	                }
+	                if(n<140-3&&i<140-3)
+	                {
+	                    if(grid[i,n]=='X'&&grid[i+1,n+1]=='M'&&grid[i+2,n+2]=='A'&&grid[i+3,n+3]=='S')
+	                        result++;
+	                    else if(grid[i,n]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n+2]=='M'&&grid[i+3,n+3]=='X')
+	                        result++;
+	                    if(grid[i+3,n]=='X'&&grid[i+2,n+1]=='M'&&grid[i+1,n+2]=='A'&&grid[i,n+3]=='S')
+	                        result++;
+	                    else if(grid[i+3,n]=='S'&&grid[i+2,n+1]=='A'&&grid[i+1,n+2]=='M'&&grid[i,n+3]=='X')
+	                        result++;
+	                }
+	            }
+	        }
+	        Console.WriteLine(result);
+	}
+	else if(part=="2")
+	{
+		for(int i=0;i<140;i++)
+	        {
+	            for(int n=0;n<140;n++)
+	            {
+	                if(i<140-2&&n<140-2)
+			{
+				if(grid[i,n]=='M'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='S')
+					result++;
+				else if(grid[i,n]=='S'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='M')
+					result++;
+				else if(grid[i,n]=='M'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='S')
+					result++;
+				else if(grid[i,n]=='S'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='M')
+					result++;
+			}
+	            }
+	        }
+		Console.WriteLine(result);
+	}
+	else {Console.WriteLine("Invalid input");}
     }
     private static void Main()
     {
