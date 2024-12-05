@@ -129,9 +129,6 @@ internal class AoC
             if(report[i]>report[i+1]) {order--;}
             else if(report[i]<report[i+1]) {order++;}
         }
-        //Console.WriteLine(order);
-        //Console.WriteLine(report.Length-2);
-        //Console.WriteLine();
         if(order==report.Length-1)
             return 1;
         else if(-order==report.Length-1)
@@ -270,16 +267,16 @@ internal class AoC
 	            for(int n=0;n<140;n++)
 	            {
 	                if(i<140-2&&n<140-2)
-			{
-				if(grid[i,n]=='M'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='S')
-					result++;
-				else if(grid[i,n]=='S'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='M')
-					result++;
-				else if(grid[i,n]=='M'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='S')
-					result++;
-				else if(grid[i,n]=='S'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='M')
-					result++;
-			}
+			        {
+                        if(grid[i,n]=='M'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='S')
+                            result++;
+                        else if(grid[i,n]=='S'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='M')
+                            result++;
+                        else if(grid[i,n]=='M'&&grid[i,n+2]=='S'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='M'&&grid[i+2,n+2]=='S')
+                            result++;
+                        else if(grid[i,n]=='S'&&grid[i,n+2]=='M'&&grid[i+1,n+1]=='A'&&grid[i+2,n]=='S'&&grid[i+2,n+2]=='M')
+                            result++;
+			        }
 	            }
 	        }
 		Console.WriteLine(result);
